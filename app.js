@@ -41,7 +41,7 @@ const handleEvent = (senderId, event) => {
 
 const handleMessage = (senderId, event) => {
   if (event.text) {
-    defaultMessage(senderId);
+    showLocations(senderId);
   } else if (event.attachments) {
     handleAttachments(senderId, event);
   }
@@ -221,6 +221,95 @@ const sizePizza = (senderId) => {
                   type: 'postback',
                   title: 'Elegir Grande',
                   payload: 'BIG_SIZE_PAYLOAD',
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  };
+  callSendApi(messageData);
+};
+
+const messageImage = (senderId) => {
+  const message = {
+    recipient: {
+      id: senderId,
+    },
+    message: {
+      attachment: {
+        type: 'image',
+        payload: {
+          url: 'https://media.giphy.com/media/1dOIvm5ynwYolB2Xlh/giphy.gif',
+        },
+      },
+    },
+  };
+  callSendApi(message);
+};
+
+const contactSupport = (senderId) => {
+  const messageData = {
+    recipient: {
+      id: senderId,
+    },
+    message: {
+      attachment: {
+        type: 'template',
+        payload: {
+          template_type: 'button',
+          text: 'Hola este es el canal de soporte, ¿Quieres llamarnos?',
+          buttons: [
+            {
+              type: 'phone_number',
+              title: 'Llamar a un asesor',
+              payload: '+522224365850',
+            },
+          ],
+        },
+      },
+    },
+  };
+  callSendApi(messageData);
+};
+
+const showLocations = (senderId) => {
+  const messageData = {
+    recipient: {
+      id: senderId,
+    },
+    message: {
+      attachment: {
+        type: 'template',
+        payload: {
+          template_type: 'generic',
+          elements: [
+            {
+              title: 'Sucursal México',
+              image_url:
+                'https://ntrzacatecas.com/content/uploads/2012/06/dominos-pizza.png',
+              subtitle: 'dirección bonita #555',
+              buttons: [
+                {
+                  title: 'Ver en el Mapa',
+                  type: 'web_url',
+                  url: 'https://goo.gl/maps/GCCpWmZep1t',
+                  webview_height_ratio: 'full',
+                },
+              ],
+            },
+            {
+              title: 'Sucursal Puebla',
+              image_url:
+                'https://ntrzacatecas.com/content/uploads/2012/06/dominos-pizza.png',
+              subtitle: 'dirección muy cerquita #555',
+              buttons: [
+                {
+                  title: 'Ver en el Mapa',
+                  type: 'web_url',
+                  url: 'https://goo.gl/maps/GCCpWmZep1t',
+                  webview_height_ratio: 'tall',
                 },
               ],
             },

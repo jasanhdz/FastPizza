@@ -27,22 +27,34 @@ app.post('/webhook', (req, res) => {
   const webhook_event = req.body.entry[0];
   if (webhook_event.messaging) {
     webhook_event.messaging.forEach((event) => {
-      console.log(event);
-      handleMessage(event);
+      // console.log(event);
+      handleEvent(event.sender.id, event);
     });
   }
   res.sendStatus(200);
 });
 
-const handleMessage = (event) => {
-  const senderId = event.sender.id;
-  const messageText = event.message.text;
+const handleEvent = (senderId, event) => {
+  if (event.message) {
+    handleMessage(senderId, event.message);
+  }
+};
+
+const handleMessage = (senderId, event) => {
+  if (event.text) {
+    console.log(event.text);
+    console.log(senderId);
+    defaultMessage(senderId);
+  }
+};
+
+const defaultMessage = (senderId) => {
   const messageData = {
     recipient: {
       id: senderId,
     },
     message: {
-      text: messageText,
+      text: 'Hola, soy un bot de messenger y te invito a utilizar nuestro menú',
     },
   };
   callSendApi(messageData);

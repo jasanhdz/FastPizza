@@ -1,6 +1,6 @@
 curl -X POST -H "Content-Type: application/json" -d ' {
   "get_started": {
-    "payload": "GET_FASTPIZZA"
+    "payload": "GET_STARTED_FASTPIZZA"
   }
 }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAADZAh8wMPEkBAMsYD7kaiCoeo3pp11kDOQkNePRvMzBno1vFGMVThYrJ5TylZBSsCdUa4K94VeKoZBhmdFjL6BI0e6quitZAtNPovsG4q2xVrafhrSbEKxdByE7jUsQnjzVAYWucdONZC8ydjpnkqkRwQam4RL9RHwnnzBNJ3gZDZD"
 

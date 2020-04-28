@@ -35,16 +35,20 @@ app.post('/webhook', (req, res) => {
 });
 
 const handleEvent = (senderId, event) => {
-  if (event.message) {
-    handleMessage(senderId, event.message);
-  }
+  if (event.message) return handleMessage(senderId, event.message);
+  else if (event.postback) return handlePostback(senderId, event.postback);
 };
 
 const handleMessage = (senderId, event) => {
   if (event.text) {
-    console.log(event.text);
-    console.log(senderId);
     defaultMessage(senderId);
+  }
+};
+
+const handlePostback = (senderId, { payload }) => {
+  switch (payload) {
+    case 'GET_STARTED_FASTPIZZA':
+      return console.log('entro al GET_STARTED_FASTPIZZA');
   }
 };
 

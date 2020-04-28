@@ -54,6 +54,12 @@ const handlePostback = (senderId, { payload }) => {
       return console.log('entro al GET_STARTED_FASTPIZZA');
     case 'PIZZAS_PAYLOAD':
       return showPizzas(senderId);
+    case 'PEPPERONI_PAYLOAD':
+      return sizePizza(senderId);
+    case 'CHICKEN_BBQ_PAYLOAD':
+      return sizePizza(senderId);
+    case 'HAWAIANA_PAYLOAD':
+      return sizePizza(senderId);
   }
 };
 
@@ -163,6 +169,66 @@ const showPizzas = (senderId) => {
     },
   };
 
+  callSendApi(messageData);
+};
+
+const sizePizza = (senderId) => {
+  console.log('elegiste tamaño pizza');
+  const messageData = {
+    recipient: {
+      id: senderId,
+    },
+    message: {
+      attachment: {
+        type: 'template',
+        payload: {
+          template_type: 'generic',
+          // top_element_style: 'LARGE',
+          elements: [
+            {
+              title: 'Individual',
+              image_url:
+                'https://olodominos.blob.core.windows.net/dev/webOptimized/pizzaChef/crust/ORIG.png',
+              subtitle: 'Porción inidividual de pizza',
+              buttons: [
+                {
+                  type: 'postback',
+                  title: 'Elegir individual',
+                  payload: 'PERSONAL_SIZE_PAYLOAD',
+                },
+              ],
+            },
+            {
+              title: 'Mediana',
+              image_url:
+                'https://olodominos.blob.core.windows.net/dev/webOptimized/pizzaChef/crust/ORIG.png',
+              subtitle: 'Porción Mediana de pizza',
+              buttons: [
+                {
+                  type: 'postback',
+                  title: 'Elegir Mediana',
+                  payload: 'MEDIUM_SIZE_PAYLOAD',
+                },
+              ],
+            },
+            {
+              title: 'Grande',
+              image_url:
+                'https://olodominos.blob.core.windows.net/dev/webOptimized/pizzaChef/crust/ORIG.png',
+              subtitle: 'Porción Grande de pizza',
+              buttons: [
+                {
+                  type: 'postback',
+                  title: 'Elegir Grande',
+                  payload: 'BIG_SIZE_PAYLOAD',
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  };
   callSendApi(messageData);
 };
 

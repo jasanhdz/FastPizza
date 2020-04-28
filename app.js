@@ -42,6 +42,8 @@ const handleEvent = (senderId, event) => {
 const handleMessage = (senderId, event) => {
   if (event.text) {
     defaultMessage(senderId);
+  } else if (event.attachments) {
+    handleAttachments(senderId, event);
   }
 };
 
@@ -49,6 +51,21 @@ const handlePostback = (senderId, { payload }) => {
   switch (payload) {
     case 'GET_STARTED_FASTPIZZA':
       return console.log('entro al GET_STARTED_FASTPIZZA');
+  }
+};
+
+const handleAttachments = (senderId, event) => {
+  console.log(event.attachments[0]);
+  let attachment_type = event.attachments[0].type;
+  switch (attachment_type) {
+    case 'image':
+      return console.log(attachment_type);
+    case 'video':
+      return console.log(attachment_type);
+    case 'audio':
+      return console.log(attachment_type);
+    case 'file':
+      return console.log(attachment_type);
   }
 };
 

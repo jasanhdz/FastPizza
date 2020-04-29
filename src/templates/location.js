@@ -1,4 +1,6 @@
-const getLocation = (senderId, callback) => {
+const { callSendApi } = require('../services/sendApi');
+
+module.exports.getLocation = (senderId) => {
   const messageData = {
     recipient: {
       id: senderId,
@@ -12,9 +14,5 @@ const getLocation = (senderId, callback) => {
       ],
     },
   };
-  callback(messageData);
-};
-
-module.exports = {
-  getLocation,
+  callSendApi(messageData);
 };

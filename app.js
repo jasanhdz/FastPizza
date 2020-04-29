@@ -5,10 +5,11 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const access_token =
   'EAADZAh8wMPEkBAMsYD7kaiCoeo3pp11kDOQkNePRvMzBno1vFGMVThYrJ5TylZBSsCdUa4K94VeKoZBhmdFjL6BI0e6quitZAtNPovsG4q2xVrafhrSbEKxdByE7jUsQnjzVAYWucdONZC8ydjpnkqkRwQam4RL9RHwnnzBNJ3gZDZD';
+// const { getLocation } = require('./src/template/location');
 
 const app = express();
 
-app.set('port', 5000);
+app.set('port', process.env.PORT || 5000);
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
@@ -41,7 +42,7 @@ const handleEvent = (senderId, event) => {
 
 const handleMessage = (senderId, event) => {
   if (event.text) {
-    receipt(senderId);
+    getLocation(senderId);
   } else if (event.attachments) {
     handleAttachments(senderId, event);
   }
@@ -397,6 +398,25 @@ const receipt = (senderId) => {
           ],
         },
       },
+    },
+  };
+  callSendApi(messageData);
+};
+
+const getLocation = (senderId) => {
+  const messageData = {
+    recipient: {
+      id: senderId,
+    },
+    message: {
+      text: 'Ahora ¿Puedes proporcionarnos tu ubicación?',
+      quick_replies: [
+        {
+          content_type: 'text',
+          title: 'Danos tu ubicación please 🙏',
+          payload: 'Lo que sea',
+        },
+      ],
     },
   };
   callSendApi(messageData);
